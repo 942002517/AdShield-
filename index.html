@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AdShield 净网卫士 隐私政策与用户协议：不收集、不上传、不售卖任何数据。逐条说明扩展申请的每一项权限及其用途。">
+<meta name="color-scheme" content="light dark">
+<title>AdShield 净网卫士 · 隐私政策与用户协议</title>
+
+<!--
+  ============================================================
+  说明（给维护者看，不会显示在页面上）
+  ============================================================
+  1. 本页面是「自包含」的：样式与脚本全部内联，不依赖任何外部资源，
+     可以直接双击打开，也可以原样托管到任意静态服务器上当隐私政策页用
+     （Chrome / Edge 应用商店上架时填的隐私政策 URL 就用它）。
+
+  2. 配色令牌（:root 与深色媒体查询）与扩展的 src/lib/theme.css 完全一致，
+     数值由扩展主题引擎按「竞速蓝 / 午夜蓝」两套预设导出，不是手抄的。
+
+  3. 放在扩展里打开时（从设置页点「隐私政策」进来），下面的脚本会加载扩展
+     自己的主题引擎，于是本页会跟随你在「界面外观」里选的配色。
+
+  4. 【待替换】第十二节的联系方式目前是占位值，发布前请替换成真实地址。
+  ============================================================
+-->
+
+<style>
+/* ---------- 令牌：浅色兜底（与 theme.css 的 :root 同源） ---------- */
+:root {
+  --brand: #2e68f9;
+  --brand-2: #7c3aed;
+  --on-brand: #ffffff;
+  --brand-soft: #ecf1fe;
+  --brand-line: #c4d5fd;
+  --brand-grad: linear-gradient(135deg, #2e68f9, #7c3aed);
+  --brand-text: #2e68f9;
+  --ink: #101828;
+  --ink-2: #475467;
+  --ink-3: #98a2b3;
+  --line: #e4e8f0;
+  --line-2: #b1b6c0;
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --soft: #f7f9fc;
+  --track: #dedfe1;
+  --code-bg: #0f172a;
+  --code-ink: #e2e8f0;
+  --code-key: #7dd3fc;
+  --code-dim: #94a3b8;
+  --ok: #027a48;
+  --ok-soft: #e6f2ed;
+  --ok-line: #a9d2c1;
+  --warn: #b54708;
+  --warn-soft: #f8ede6;
+  --warn-line: #e6c0ab;
+  --err: #b42318;
+  --err-soft: #f8e9e8;
+  --err-line: #e6b4b0;
+  --mark-bg: #fee9b5;
+  --mark-ink: #101828;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-pop: 0 10px 30px rgba(16, 24, 40, 0.18);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 15px;
+}
+
+/* ---------- 令牌：深色（按「午夜蓝」预设导出） ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand: #4d8cf5;
+    --brand-2: #9b6bf5;
+    --on-brand: #101828;
+    --brand-soft: #21355c;
+    --brand-line: #2d4d86;
+    --brand-grad: linear-gradient(135deg, #4d8cf5, #9b6bf5);
+    --brand-text: #4d8cf5;
+    --ink: #e8eefc;
+    --ink-2: #a9b6d4;
+    --ink-3: #6f7d9e;
+    --line: #232e4b;
+    --line-2: #525c75;
+    --bg: #0e1526;
+    --surface: #161f36;
+    --soft: #1d2740;
+    --track: #555d71;
+    --code-bg: #080c15;
+    --code-ink: #e2e8f0;
+    --code-key: #7dd3fc;
+    --code-dim: #94a3b8;
+    --ok: #34d399;
+    --ok-soft: #1c434a;
+    --ok-line: #22675e;
+    --warn: #fbbf24;
+    --warn-soft: #443f32;
+    --warn-line: #725f2f;
+    --err: #fb7185;
+    --err-soft: #442f46;
+    --err-line: #724056;
+    --mark-bg: #76622e;
+    --mark-ink: #ffffff;
+    --shadow: none;
+    --shadow-pop: 0 10px 30px rgba(0, 0, 0, .5);
+    --radius: 10px;
+    --radius-sm: 6px;
+    --radius-lg: 15px;
+  }
+}
+
+/* ---------- 基础 ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.78 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--brand); color: var(--on-brand); }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
+
+* { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+a { color: var(--brand-text); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code, kbd, .mono {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+               "Liberation Mono", monospace;
+  font-size: .9em;
+}
+p code, li code, td code, h3 code {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: .1em .4em;
+  color: var(--brand-text);
+  white-space: nowrap;
+}
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 24px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(1.6) blur(12px);
+  -webkit-backdrop-filter: saturate(1.6) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brand-mark {
+  width: 34px; height: 34px;
+  flex: 0 0 34px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-grad);
+  display: grid;
+  place-items: center;
+  color: var(--on-brand);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -.02em;
+}
+.brand-text { min-width: 0; }
+.brand-name {
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.brand-sub {
+  font-size: 12px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.topbar-spacer { flex: 1 1 auto; }
+.topbar-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 12px;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.chip b { color: var(--ink); font-weight: 620; }
+
+/* ---------- 布局 ---------- */
+.shell {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 26px 24px 72px;
+  display: grid;
+  grid-template-columns: 258px minmax(0, 1fr);
+  gap: 34px;
+  align-items: start;
+}
+
+/* ---------- 目录 ---------- */
+.toc {
+  position: sticky;
+  top: 78px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+/* 桌面端目录常驻展开，<details> 只是为了让窄屏能折叠，不显示这个把柄 */
+.toc > details > summary { display: none; }
+.toc-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+  padding-left: 11px;
+}
+.toc ol { list-style: none; }
+.toc a {
+  display: block;
+  padding: 6px 11px;
+  border-left: 2px solid transparent;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  line-height: 1.45;
+  transition: background .14s, color .14s, border-color .14s;
+}
+.toc a:hover { background: var(--soft); color: var(--ink); text-decoration: none; }
+.toc a.is-active {
+  border-left-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand-text);
+  font-weight: 600;
+}
+.toc-divider {
+  margin: 14px 11px 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- 正文 ---------- */
+main { min-width: 0; }
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  box-shadow: var(--shadow);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--brand-grad);
+}
+.hero h1 {
+  font-size: 25px;
+  line-height: 1.3;
+  letter-spacing: -.02em;
+  font-weight: 700;
+}
+.hero-lead {
+  margin-top: 10px;
+  color: var(--ink-2);
+  font-size: 15px;
+  max-width: 62ch;
+}
+.hero-meta {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.hero-meta b { color: var(--ink-2); font-weight: 600; }
+
+.pills {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: var(--ok-soft);
+  border: 1px solid var(--ok-line);
+  color: var(--ok);
+  font-size: 13px;
+  font-weight: 600;
+}
+.pill::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: 0 0 6px;
+}
+
+section.doc {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 26px 28px;
+  margin-top: 20px;
+  box-shadow: var(--shadow);
+}
+section.doc > h2 {
+  font-size: 18px;
+  font-weight: 680;
+  letter-spacing: -.01em;
+  line-height: 1.4;
+  display: flex;
+  gap: 11px;
+  align-items: baseline;
+}
+section.doc > h2 .num {
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-text);
+  background: var(--brand-soft);
+  border: 1px solid var(--brand-line);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  font-variant-numeric: tabular-nums;
+}
+section.doc > h2 + * { margin-top: 14px; }
+
+h3 {
+  font-size: 15px;
+  font-weight: 650;
+  margin: 22px 0 8px;
+  letter-spacing: -.005em;
+}
+h3:first-child { margin-top: 0; }
+
+p { margin: 10px 0; color: var(--ink-2); }
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+strong, b { color: var(--ink); font-weight: 650; }
+
+ul, ol { margin: 10px 0; padding-left: 22px; color: var(--ink-2); }
+li { margin: 6px 0; }
+li::marker { color: var(--ink-3); }
+
+.lead-num { list-style: none; padding-left: 0; counter-reset: ln; }
+.lead-num > li {
+  counter-increment: ln;
+  position: relative;
+  padding-left: 34px;
+  margin: 12px 0;
+}
+.lead-num > li::before {
+  content: counter(ln);
+  position: absolute;
+  left: 0; top: 1px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  border: 1px solid var(--brand-line);
+  color: var(--brand-text);
+  font-size: 11.5px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 表格 ---------- */
+.tw {
+  margin: 14px 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 13.5px; }
+th, td {
+  text-align: left;
+  padding: 10px 13px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.6;
+}
+thead th {
+  background: var(--soft);
+  font-weight: 650;
+  color: var(--ink);
+  font-size: 12.5px;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--soft); }
+td code { white-space: nowrap; }
+
+.tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 650;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.tag.yes { color: var(--ok); background: var(--ok-soft); border-color: var(--ok-line); }
+.tag.no  { color: var(--ink-2); background: var(--soft); border-color: var(--line); }
+.tag.mid { color: var(--warn); background: var(--warn-soft); border-color: var(--warn-line); }
+
+/* ---------- 提示块 ---------- */
+.note {
+  margin: 14px 0;
+  padding: 12px 15px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  border-left-width: 3px;
+  background: var(--soft);
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.note p { margin: 4px 0; font-size: 14px; }
+.note p:first-child { margin-top: 0; }
+.note p:last-child { margin-bottom: 0; }
+.note-title { font-weight: 650; color: var(--ink); }
+.note.ok { background: var(--ok-soft); border-color: var(--ok-line); border-left-color: var(--ok); }
+.note.ok .note-title { color: var(--ok); }
+.note.warn { background: var(--warn-soft); border-color: var(--warn-line); border-left-color: var(--warn); }
+.note.warn .note-title { color: var(--warn); }
+.note.err { background: var(--err-soft); border-color: var(--err-line); border-left-color: var(--err); }
+.note.err .note-title { color: var(--err); }
+
+/* 行内徽章：后面直接跟中文时必须留出间距，否则会连读成「不采集扩展只…」 */
+.cross {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 0 6px;
+  border-radius: var(--radius-sm);
+  background: var(--err-soft);
+  border: 1px solid var(--err-line);
+  color: var(--err);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tick {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 0 6px;
+  border-radius: var(--radius-sm);
+  background: var(--ok-soft);
+  border: 1px solid var(--ok-line);
+  color: var(--ok);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- 速读卡 ---------- */
+.quick {
+  margin-top: 20px;
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  background: var(--brand-grad);
+  color: var(--on-brand);
+}
+.quick h2 { font-size: 17px; font-weight: 680; letter-spacing: -.01em; }
+.quick ol {
+  margin: 14px 0 0;
+  padding-left: 20px;
+  color: inherit;
+}
+.quick li { margin: 8px 0; color: inherit; opacity: .95; }
+.quick li::marker { color: inherit; opacity: .7; }
+.quick a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------- 页脚 ---------- */
+.foot {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+.foot-links { display: flex; gap: 16px; flex-wrap: wrap; }
+/* 页脚里的「打印」是个动作不是跳转，所以用 button，但样式跟旁边链接一致 */
+.linkbtn {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--brand-text);
+  cursor: pointer;
+}
+.linkbtn:hover { text-decoration: underline; }
+
+.totop {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 40px; height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+  box-shadow: var(--shadow-pop);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .18s, transform .18s, visibility .18s, color .14s, border-color .14s;
+  font-size: 16px;
+  line-height: 1;
+  z-index: 30;
+}
+.totop.show { opacity: 1; visibility: visible; transform: none; }
+.totop:hover { color: var(--brand-text); border-color: var(--brand-line); }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 1000px) {
+  .shell { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-top: 20px; }
+  .toc {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 5px 6px;
+  }
+  /* 窄屏把目录收成一行折叠条，别让第一屏全被 18 条链接占掉 */
+  .toc > details > summary {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 12px;
+    cursor: pointer;
+    list-style: none;
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--ink);
+    border-radius: var(--radius);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .toc > details > summary::-webkit-details-marker { display: none; }
+  .toc > details > summary:hover { background: var(--soft); }
+  .toc-summary-hint {
+    margin-left: auto;
+    padding-right: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-3);
+  }
+  .toc > details > summary::after {
+    content: "";
+    flex: 0 0 auto;
+    width: 7px; height: 7px;
+    margin-right: 3px;
+    border-right: 1.5px solid var(--ink-3);
+    border-bottom: 1.5px solid var(--ink-3);
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform .18s;
+  }
+  .toc > details[open] > summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+  .toc-body { padding: 6px 12px 12px; margin-top: 2px; border-top: 1px solid var(--line); }
+  .toc ol { columns: 2; column-gap: 20px; }
+  .toc li { break-inside: avoid; }
+  .toc a { padding: 5px 9px; }
+  .toc-divider { margin: 12px 9px 6px; }
+}
+@media (max-width: 620px) {
+  .topbar { padding: 10px 15px; gap: 10px; }
+  .topbar-meta { display: none; }
+  .shell { padding: 16px 15px 60px; }
+  .hero, section.doc, .quick { padding: 20px 17px; }
+  .hero h1 { font-size: 21px; }
+  .toc ol { columns: 1; }
+  .brand-sub { display: none; }
+}
+
+/* ---------- 打印 ---------- */
+@media print {
+  :root { --bg: #fff; --surface: #fff; --soft: #fff; --shadow: none; --shadow-pop: none; --ink: #000; --ink-2: #222; --line: #bbb; }
+  body { background: #fff; font-size: 11.5pt; }
+  .topbar, .toc, .totop, .foot-links { display: none !important; }
+  .shell { display: block; max-width: none; padding: 0; }
+  .hero, section.doc { border: 0; padding: 0; margin: 0 0 14pt; box-shadow: none; border-radius: 0; }
+  .hero::before { display: none; }
+  .hero h1 { font-size: 19pt; }
+  section.doc { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  .tw, table { break-inside: avoid; }
+  .quick { background: #f2f2f2 !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .pill { background: #f2f2f2 !important; color: #000 !important; border-color: #bbb !important; }
+  a { color: #000; text-decoration: none; }
+  a[href^="http"]::after { content: " <" attr(href) ">"; font-size: .85em; color: #555; }
+}
+</style>
+
+<script>
+/* 只有在扩展环境里才加载扩展自带的主题引擎，让本页跟随用户在「界面外观」里
+ * 选择的配色；作为独立网站托管时这两个文件不存在，脚本不会执行，
+ * 页面直接使用上面的内联令牌（含深色模式适配）。 */
+(function () {
+  if (!(window.chrome && window.chrome.runtime && window.chrome.runtime.id)) return;
+  var head = document.head;
+  var css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = '../lib/theme.css';
+  head.appendChild(css);
+  var st = document.createElement('script');
+  st.src = '../lib/storage.js';
+  st.onload = function () {
+    var th = document.createElement('script');
+    th.src = '../lib/theme.js';
+    th.onload = function () {
+      try { window.AdShieldTheme.init({}); } catch (e) { /* 用内联令牌兜底 */ }
+    };
+    head.appendChild(th);
+  };
+  head.appendChild(st);
+})();
+</script>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">AS</div>
+    <div class="brand-text">
+      <div class="brand-name">AdShield 净网卫士</div>
+      <div class="brand-sub">隐私政策与用户协议</div>
+    </div>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-meta">
+    <span class="chip">版本 <b>1.4.1</b></span>
+    <span class="chip">生效 <b>2026-10-13</b></span>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- ================= 目录 ================= -->
+  <nav class="toc" aria-label="目录">
+    <details id="tocBox" open>
+      <summary class="toc-summary">本页目录<span class="toc-summary-hint">共 18 节</span></summary>
+      <div class="toc-body">
+        <div class="toc-title">隐私政策</div>
+        <ol>
+          <li><a href="#s1">一、我们的承诺</a></li>
+          <li><a href="#s2">二、我们不收集什么</a></li>
+          <li><a href="#s3">三、数据存放在哪里</a></li>
+          <li><a href="#s4">四、什么时候会联网</a></li>
+          <li><a href="#s5">五、权限逐条说明</a></li>
+          <li><a href="#s6">六、页面内容的访问范围</a></li>
+          <li><a href="#s7">七、我们明确不做的事</a></li>
+          <li><a href="#s8">八、第三方规则列表</a></li>
+          <li><a href="#s9">九、数据的删除与卸载</a></li>
+          <li><a href="#s10">十、未成年人保护</a></li>
+          <li><a href="#s11">十一、政策变更</a></li>
+          <li><a href="#s12">十二、联系方式</a></li>
+        </ol>
+        <div class="toc-divider">用户协议</div>
+        <ol>
+          <li><a href="#t1">十三、服务说明与许可</a></li>
+          <li><a href="#t2">十四、用户责任</a></li>
+          <li><a href="#t3">十五、免责声明</a></li>
+          <li><a href="#t4">十六、知识产权</a></li>
+          <li><a href="#t5">十七、协议终止与适用法律</a></li>
+          <li><a href="#t6">十八、一页速读</a></li>
+        </ol>
+      </div>
+    </details>
+  </nav>
+
+  <!-- ================= 正文 ================= -->
+  <main>
+
+    <div class="hero">
+      <h1>AdShield 净网卫士 · 隐私政策与用户协议</h1>
+      <p class="hero-lead">
+        这是一款<strong>纯本地运行的浏览器广告拦截扩展</strong>。它不需要注册账号，
+        没有服务器，不收集、不上传、不售卖你的任何数据。这份文档把你可能关心的两件事讲清楚：
+        我们申请了哪些权限、每一项到底用来做什么；以及你使用它时享有哪些权利、承担哪些责任。
+      </p>
+      <div class="pills">
+        <span class="pill">不收集数据</span>
+        <span class="pill">不上传数据</span>
+        <span class="pill">不售卖数据</span>
+        <span class="pill">无需账号</span>
+        <span class="pill">无第三方追踪</span>
+      </div>
+      <div class="hero-meta">
+        <span><b>适用产品：</b>AdShield 净网卫士浏览器扩展</span>
+        <span><b>适用版本：</b>1.4.1 及后续版本</span>
+        <span><b>生效日期：</b>2026 年 10 月 13 日</span>
+      </div>
+    </div>
+
+    <!-- ============ 一 ============ -->
+    <section class="doc" id="s1">
+      <h2><span class="num">一</span>我们的承诺</h2>
+      <p>
+        广告拦截天然需要看到「你正在请求什么」，这决定了它是一个对隐私非常敏感的工具。
+        所以这款扩展在设计上做了一个取舍：<strong>所有判断都在你的设备上完成，所有记录都只存在你的设备上。</strong>
+      </p>
+      <p>具体到可核查的三条：</p>
+      <ol class="lead-num">
+        <li>
+          <strong>没有后端。</strong>本项目不运营任何服务器。扩展里没有任何一处把你的浏览数据发往外部的代码——
+          不存在「收集端」，也就谈不上数据泄露。
+        </li>
+        <li>
+          <strong>拦截由浏览器内核执行。</strong>广告与追踪请求是靠 <code>declarativeNetRequest</code> 交给浏览器内核直接匹配拦截的，
+          扩展自身并不读取你的请求内容，也不需要读取。
+        </li>
+        <li>
+          <strong>不加载任何远程代码。</strong>扩展的全部逻辑都打包在安装目录里，Manifest V3 的默认安全策略也不允许执行外部脚本，
+          因此不存在「某天被下发一段新代码」的可能。
+        </li>
+      </ol>
+      <div class="note ok">
+        <p><span class="note-title">一句话总结：</span>
+          它不会比你桌面上的一个记事本知道得更多。唯一会联网的动作，是去下载<strong>你自己订阅</strong>的规则列表。</p>
+      </div>
+    </section>
+
+    <!-- ============ 二 ============ -->
+    <section class="doc" id="s2">
+      <h2><span class="num">二</span>我们不收集什么</h2>
+      <p>以下类别是本扩展<strong>完全没有采集</strong>的，不是「收集但匿名化」，而是压根没有这条链路：</p>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr><th style="width:32%">类别</th><th>说明</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>个人身份信息</td>
+              <td>姓名、邮箱、手机号、身份证件、住址、头像——扩展从未索要，也没有填写入口。</td>
+            </tr>
+            <tr>
+              <td>浏览历史</td>
+              <td>你访问过哪些网站、停留多久、点了什么。<span class="cross">不采集</span>扩展只在弹窗被打开的那一瞬间，读取当前这一个标签页的地址用于显示本站拦截数，不记录、不留存、不上传。</td>
+            </tr>
+            <tr>
+              <td>页面内容</td>
+              <td>网页正文、搜索框里的字、表单填写内容、账号密码、聊天记录、上传的文件。<span class="cross">不采集</span></td>
+            </tr>
+            <tr>
+              <td>设备与系统信息</td>
+              <td>操作系统版本、屏幕分辨率、安装的字体、硬件型号、设备唯一标识。<span class="cross">不采集</span></td>
+            </tr>
+            <tr>
+              <td>使用行为统计</td>
+              <td>装了多少人、每天拦了多少条、你点了哪个按钮、停留了几秒。没有埋点、没有遥测、没有崩溃上报。<span class="cross">不采集</span></td>
+            </tr>
+            <tr>
+              <td>广告与追踪标识符</td>
+              <td>包括但不限于广告 ID、Cookie 同步标识、指纹特征。我们不做广告，也没有联盟推广。<span class="cross">不采集</span></td>
+            </tr>
+            <tr>
+              <td>账号体系</td>
+              <td>扩展没有登录功能，不存在「账号」这个概念，因此也没有因账号而产生的数据关联风险。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ 三 ============ -->
+    <section class="doc" id="s3">
+      <h2><span class="num">三</span>数据存放在哪里</h2>
+      <p>
+        扩展确实会保存一些东西——你的设置、订阅的规则、累计拦截数。这些数据<strong>全部存放在你本机的浏览器存储里</strong>，
+        除了你打开扩展设置页，没有任何进程能读到它们。
+      </p>
+
+      <h3>3.1 长期保存（磁盘，卸载即清）</h3>
+      <p>存放位置：<code>chrome.storage.local</code>，落盘在你的浏览器用户数据目录中。</p>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr><th style="width:26%">存储键</th><th style="width:44%">内容</th><th>什么时候会被清掉</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>settings</code></td>
+              <td>功能开关、白名单域名、你手写的高级规则、点选屏蔽保存的选择器、界面配色</td>
+              <td>卸载扩展，或设置页「恢复默认设置」</td>
+            </tr>
+            <tr>
+              <td><code>lists</code></td>
+              <td>订阅/导入的规则列表元信息：名称、来源地址、规则条数、更新时间</td>
+              <td>删除该列表时同步移除</td>
+            </tr>
+            <tr>
+              <td><code>listText:&lt;id&gt;</code></td>
+              <td>规则列表的原始文本。单份常见在数百 KB 到数 MB 之间，这也是申请 <code>unlimitedStorage</code> 的原因</td>
+              <td>删除该列表时同步移除</td>
+            </tr>
+            <tr>
+              <td><code>cosmetic:domain:&lt;host&gt;</code><br><code>cosmeticIndex</code></td>
+              <td>按站点编译好的元素隐藏规则（纯选择器字符串，不含页面内容）</td>
+              <td>下次编译时覆盖</td>
+            </tr>
+            <tr>
+              <td><code>compileInfo</code></td>
+              <td>编译统计：下发规则条数、耗时、被截断的规则数</td>
+              <td>下次编译时覆盖</td>
+            </tr>
+            <tr>
+              <td><code>totals</code></td>
+              <td>累计拦截/隐藏计数与起始时间（纯数字，不含具体域名）</td>
+              <td>设置页「重置统计」</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.2 临时保存（内存，关浏览器即清）</h3>
+      <p>
+        存放位置：<code>chrome.storage.session</code>。这是浏览器提供的内存级存储，
+        <strong>不写入磁盘</strong>，随浏览器关闭自动消失。
+      </p>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr><th style="width:26%">存储键</th><th style="width:44%">内容</th><th>什么时候会被清掉</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>tabStats</code></td>
+              <td>每个标签页各自的拦截/隐藏条数，用于在图标上显示角标数字</td>
+              <td>关闭该标签页、关闭浏览器</td>
+            </tr>
+            <tr>
+              <td><code>blockLogs</code></td>
+              <td>最近 400 条拦截记录：被拦资源的域名、资源类型、时间、所属标签页编号</td>
+              <td>关闭浏览器，或控制面板点「清空日志」</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <p><span class="note-title">关于拦截日志。</span>
+          它是控制面板里「拦截日志」页签的数据来源，只记录「哪个域名下的哪类资源被拦了」，
+          记录的是<strong>域名</strong>而不是完整网址，也不包含页面正文、查询参数、Cookie。
+          如果你不希望保留它，可以在设置里关闭「记录拦截日志」，关闭后不再产生新的记录，已有的可一键清空。</p>
+      </div>
+    </section>
+
+    <!-- ============ 四 ============ -->
+    <section class="doc" id="s4">
+      <h2><span class="num">四</span>什么时候会联网</h2>
+      <p>只有一种情况：<strong>去下载你自己订阅的规则列表</strong>。请求方式是普通的 HTTPS GET，请求的目标地址就是你填进去的那个地址。</p>
+      <ol class="lead-num">
+        <li><strong>你主动导入时</strong> —— 在设置页粘贴一个规则列表地址并点「导入」，扩展会去下载一次。</li>
+        <li><strong>自动更新时</strong> —— 该列表保留着「自动更新」（默认开启）时，每 12 小时检查一次有没有新版本。可在列表项上一键关闭。</li>
+      </ol>
+      <p>
+        这些请求<strong>不附带任何标识信息</strong>：不带你的浏览记录、不带设备信息、不带任何自定义请求头，
+        就是一个最朴素的「把这个 txt 文件给我」。规则列表服务器能看到你的 IP 地址——
+        这是任何网络请求都无法避免的，与是否使用本扩展无关。
+      </p>
+      <div class="note ok">
+        <p><span class="note-title">如果你不订阅任何在线列表。</span>
+          所有规则都靠内置规则库、手写规则或本地文件导入，那么这款扩展<strong>一次网络请求都不会发出</strong>，
+          可以完全离线使用。内置规则库已随扩展打包，不需要联网。</p>
+      </div>
+      <h3>我们明确不会发送的东西</h3>
+      <ul>
+        <li>浏览历史、访问过的网址、标签页列表</li>
+        <li>拦截记录、拦截统计、命中过哪条规则</li>
+        <li>页面内容、DOM 结构、截图</li>
+        <li>任何形式的设备指纹、安装标识、崩溃日志</li>
+      </ul>
+      <p>没有第三方分析 SDK，没有统计服务，没有广告投放，没有联盟分佣链接。</p>
+    </section>
+
+    <!-- ============ 五 ============ -->
+    <section class="doc" id="s5">
+      <h2><span class="num">五</span>权限逐条说明</h2>
+      <p>
+        安装时浏览器会列出扩展申请的权限。这里逐条对账，说明每一项<strong>对应 manifest 里的哪一条</strong>、
+        <strong>用来做什么</strong>、以及<strong>能不能关</strong>。
+      </p>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:24%">权限</th>
+              <th style="width:9%">类型</th>
+              <th>用途</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>declarativeNetRequest</code></td>
+              <td><span class="tag yes">必需</span></td>
+              <td>把广告、追踪脚本的请求交给浏览器内核，在<strong>网络层直接拦掉</strong>。规则由内核匹配，扩展自身接触不到请求内容，这也是它比老式拦截方式更快、更私密的原因。</td>
+            </tr>
+            <tr>
+              <td><code>declarativeNetRequestFeedback</code></td>
+              <td><span class="tag no">可选</span></td>
+              <td>读取「本次浏览会话里哪些规则命中了」，用于弹窗里的计数与控制面板的拦截日志。注意：浏览器出于安全考虑，只把这项能力开放给<strong>未打包/开发模式加载</strong>的扩展，正式安装版取不到数据，控制面板会相应地显示为不可用，这不影响拦截本身。</td>
+            </tr>
+            <tr>
+              <td><code>storage</code></td>
+              <td><span class="tag yes">必需</span></td>
+              <td>把第 3 节列出的设置、订阅列表、自定义规则保存在本机。不含任何云同步，不会离开这台设备。</td>
+            </tr>
+            <tr>
+              <td><code>unlimitedStorage</code></td>
+              <td><span class="tag yes">必需</span></td>
+              <td>规则列表动辄数万条、单份可达数 MB，默认的 10 MB 配额装不下。这项权限<strong>只放宽你本机的存储配额</strong>，不涉及任何网络访问。</td>
+            </tr>
+            <tr>
+              <td><code>activeTab</code></td>
+              <td><span class="tag yes">必需</span></td>
+              <td>在你<strong>点击扩展图标打开弹窗的那一刻</strong>，读取当前这一个标签页的地址，用来显示「本站已拦截 N 条」以及判断本站是否已被加入白名单。它不会在你不点的时候读任何标签页，也读不到其他标签页。</td>
+            </tr>
+            <tr>
+              <td><code>scripting</code></td>
+              <td><span class="tag mid">按需</span></td>
+              <td>只有当你<strong>主动点击「点选屏蔽元素」</strong>时，才会把屏蔽脚本注入当前页面（用于兜住「扩展刚装好、脚本还没注入」的情况）。平时不触发。</td>
+            </tr>
+            <tr>
+              <td><code>alarms</code></td>
+              <td><span class="tag yes">必需</span></td>
+              <td>建立一个每 12 小时的定时器，用来检查你订阅的规则列表有没有更新。它只负责「到点提醒」，不采集任何信息。</td>
+            </tr>
+            <tr>
+              <td><code>&lt;all_urls&gt;</code><br><span style="color:var(--ink-3)">（host 权限）</span></td>
+              <td><span class="tag yes">必需</span></td>
+              <td>广告出现在哪，规则就得能在哪生效，所以需要覆盖所有网站。它包含两层含义：让拦截规则可以匹配任意站点的请求；让内容脚本可以在页面上隐藏广告位。<strong>它不等于扩展在读取你的浏览内容</strong>——网络部分由内核完成、扩展不接触请求正文，页面部分的访问范围见下一节，是明确且有限的。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>为什么必须申请「所有网站」这么大的权限</h3>
+      <p>
+        这是广告拦截类扩展绕不开的一点。拦截器的工作方式是「把规则拿去过一遍每一个要发出的请求」，
+        如果只授权部分网站，那没授权的站点就完全拦不住，功能会残缺。
+      </p>
+      <p>可以用三个具体的事实来检验这项权限被用在了哪里：</p>
+      <ul>
+        <li><strong>它没有联网能力。</strong>扩展没有服务器地址，代码里唯一 <code>fetch</code> 的目标是你填的规则列表 URL。想外传数据也没有接收方。</li>
+        <li><strong>它读不到加密内容。</strong>HTTPS 页面在扩展这一层同样是密文，扩展只能看到域名和资源路径，看不到页面里的文字。</li>
+        <li><strong>你可以随时收窄它。</strong>遇到不放心的站点，点弹窗里的「本站白名单」，该站点会立刻完全恢复原状，规则和脚本都不再对它生效。</li>
+      </ul>
+    </section>
+
+    <!-- ============ 六 ============ -->
+    <section class="doc" id="s6">
+      <h2><span class="num">六</span>页面内容的访问范围</h2>
+      <p>
+        在 <code>http</code> / <code>https</code> 页面（包含页面内的 iframe）的文档开始阶段，
+        会注入一小段脚本。它只做下面四件事，全部在本地完成、结果只作用于页面显示：
+      </p>
+      <ol class="lead-num">
+        <li>
+          <strong>隐藏广告位。</strong>按规则找到页面里的广告容器，给它打上一个属性标记，
+          再由一段 CSS 把它设为 <code>display:none</code>。不修改页面的其他内容，也不删除节点。
+        </li>
+        <li>
+          <strong>匹配文本条件（仅在你启用时）。</strong>部分规则带 <code>:has-text()</code> 或正则条件，
+          需要读取元素的<strong>可见文字</strong>来判断是否命中。只有存在这类规则时才执行读取，读完即弃，不做任何留存。
+        </li>
+        <li>
+          <strong>屏蔽视频站的直播内容推荐（默认关闭）。</strong>视频网站的推荐位、列表与搜索结果里常常混着直播卡片。
+          扩展的判断依据是<strong>卡片里的链接指向哪个域</strong>，而不是猜类名，因此站点改版也不容易失效。
+          导航栏与侧栏里的直播频道入口<strong>刻意不动</strong>——那是站点自带的功能，隐藏它是把功能砍掉一块，而不是净化。这项功能默认关闭，开与不开由你决定。
+        </li>
+        <li>
+          <strong>反广告拦截检测对抗（默认开启，可单独关闭）。</strong>有些站点会放一个看不见的「诱饵元素」，
+          量一下它的尺寸，如果尺寸为 0 就断定你装了拦截器，然后把正文替换成「请关闭广告拦截插件」。扩展的应对方式是在页面自身的运行环境里，
+          对 <code>offsetHeight</code>、<code>offsetWidth</code>、<code>getBoundingClientRect</code> 等<strong>尺寸类读取接口</strong>做一层包装：
+          只有当原始结果为 0、且该元素看起来确实是诱饵时，才返回 1；对正常可见的元素完全不介入，返回值和原生行为一致。
+        </li>
+      </ol>
+      <div class="note warn">
+        <p><span class="note-title">关于第 4 点需要坦白说明。</span>
+          它是这份隐私政策里<strong>唯一一项会改变网页自身行为</strong>的功能。它改写的是页面读取元素尺寸的结果，
+          目的是让被误判的页面恢复正常显示。它不会修改页面文字、不会伪造点击、不会拦截页面自身的业务请求。
+          如果你不接受任何形式的页面行为改动，可以在设置里把「反广告拦截检测对抗」单独关掉，其余功能不受影响。</p>
+      </div>
+      <h3>明确不读取的内容</h3>
+      <ul>
+        <li>表单里输入的任何内容：账号、密码、手机号、银行卡、搜索词、评论草稿</li>
+        <li>页面的 Cookie、<code>localStorage</code>、<code>sessionStorage</code></li>
+        <li>其他标签页的内容（<code>activeTab</code> 只在弹窗打开的一瞬间读当前页地址）</li>
+        <li>剪贴板、截图、屏幕录制、摄像头、麦克风、地理位置、通讯录</li>
+      </ul>
+      <p>
+        最后这几类不是「承诺不用」，而是扩展的权限清单里<strong>根本没有申请</strong>，
+        技术上也就不具备调用的可能。
+      </p>
+    </section>
+
+    <!-- ============ 七 ============ -->
+    <section class="doc" id="s7">
+      <h2><span class="num">七</span>我们明确不做的事</h2>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr><th style="width:34%">事项</th><th>立场</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>收集个人身份信息</td><td><span class="cross">不做</span>不需要注册，没有账号体系。</td></tr>
+            <tr><td>建立用户画像 / 行为分析</td><td><span class="cross">不做</span>没有分析代码，也没有可供分析的服务器。</td></tr>
+            <tr><td>出售、出租、共享数据</td><td><span class="cross">不做</span>没有可出售的数据，也没有任何接收方。</td></tr>
+            <tr><td>投放广告、联盟推广</td><td><span class="cross">不做</span>一款广告拦截器接广告，本身就是荒谬的。</td></tr>
+            <tr><td>加载远程代码</td><td><span class="cross">不做</span>所有逻辑随包发布，也不具备执行外部脚本的权限。</td></tr>
+            <tr><td>替换页面里的广告</td><td><span class="cross">不做</span>只做隐藏，不注入任何自营内容、不重定向到别处。</td></tr>
+            <tr><td>拦截页面自身的业务请求</td><td><span class="cross">不做</span>规则只针对广告与追踪资源。误拦是可能发生的，这也是白名单存在的原因。</td></tr>
+            <tr><td>读取页面表单与隐私数据</td><td><span class="cross">不做</span>权限与代码路径上都不具备。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ 八 ============ -->
+    <section class="doc" id="s8">
+      <h2><span class="num">八</span>第三方规则列表</h2>
+      <p>
+        扩展内置了一套基础规则，同时允许你订阅由第三方维护的公开规则列表。设置页里预设了几个常用的来源，
+        包括 EasyList、EasyList China、EasyPrivacy、uBlock Origin Filters、AdGuard Filters Registry 等。
+      </p>
+      <ul>
+        <li>
+          这些列表由各自的组织独立维护，采用开放许可发布。你订阅它们时，适用的是<strong>对方的使用条款</strong>，
+          本项目不对其内容的准确性与时效性负责。
+        </li>
+        <li>
+          列表更新由扩展直接向这些地址发起请求，<strong>不经过任何中转服务器</strong>，我们看不到你订阅了什么、也看不到下载内容。
+        </li>
+        <li>
+          如果某个地址失效或改版，扩展会在列表项上标注更新失败，你可以更换地址或改为本地导入。
+        </li>
+        <li>
+          反拦截对抗用到的两个重定向目标（脚本桩 <code>noop-adscript.js</code> 与占位图 <code>icons/1x1.png</code>）
+          都是扩展<strong>自带的静态文件</strong>，不涉及任何外部服务。
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ 九 ============ -->
+    <section class="doc" id="s9">
+      <h2><span class="num">九</span>数据的删除与卸载</h2>
+      <p>你随时可以清空全部数据，不需要向我们提交任何申请——因为数据本来就在你手上。</p>
+      <ul>
+        <li><strong>彻底清除：</strong>在扩展管理页卸载本扩展。浏览器会连同它的本地存储一并删除。</li>
+        <li><strong>只清数据、保留扩展：</strong>设置页 → 高级 → 清空所有数据；累计统计可在同一页「重置统计」。</li>
+        <li><strong>逐个删除订阅：</strong>在「订阅列表」里删除某一项，对应规则文本会同步从本机移除。</li>
+        <li><strong>会话数据：</strong>标签页计数与拦截日志存放在内存区，关闭浏览器即自动消失，无需手动清理。</li>
+      </ul>
+      <div class="note warn">
+        <p><span class="note-title">一个容易被忽略的细节。</span>
+          未打包扩展的身份标识是由它<strong>所在文件夹的绝对路径</strong>推导出来的（包里没有写死固定的 key）。
+          因此如果你把扩展目录移动位置或改名，浏览器会把它当成一个全新的扩展，原设置不会跟着迁移。
+          需要在多台设备间同步设置时，请使用设置页的「导出备份 / 导入备份」功能。</p>
+      </div>
+    </section>
+
+    <!-- ============ 十 ============ -->
+    <section class="doc" id="s10">
+      <h2><span class="num">十</span>未成年人保护</h2>
+      <p>
+        本扩展不收集任何用户的个人信息，因此也不存在针对未成年人的信息采集问题。
+        它不提供社交、支付、内容发布等功能。未成年人可以在监护人指导下正常使用。
+      </p>
+    </section>
+
+    <!-- ============ 十一 ============ -->
+    <section class="doc" id="s11">
+      <h2><span class="num">十一</span>政策变更</h2>
+      <p>
+        隐私政策会随扩展版本更新。如果某次变更实质性地扩大了数据相关的行为（例如新增了任何形式的联网上报），
+        我们会：
+      </p>
+      <ul>
+        <li>更新本页顶部的版本号与生效日期；</li>
+        <li>在扩展的更新说明里明确写出这项变更；</li>
+        <li>如果是重大变更，在扩展内以显著方式提示，而不是悄悄改掉。</li>
+      </ul>
+      <p>
+        由于本扩展没有任何自动更新之外的通信渠道，你手上这份文档应当与扩展版本号一一对应。
+        版本号不一致时，以你安装的扩展包内附的这份文件为准。
+      </p>
+    </section>
+
+    <!-- ============ 十二 ============ -->
+    <section class="doc" id="s12">
+      <h2><span class="num">十二</span>联系方式</h2>
+      <p>对隐私政策有疑问、想反馈安全相关问题，或希望确认某一项权限的实际用途，可以通过以下方式联系：</p>
+      <ul>
+        <li><strong>问题反馈：</strong><a href="mailto:adshield-support@example.com">adshield-support@example.com</a></li>
+        <li><strong>项目源码与更新说明：</strong>随扩展分发包一并提供（<code>README.md</code>）</li>
+      </ul>
+      <div class="note">
+        <p>如果你想自己验证这份文档的说法，最直接的办法是查看源码：所有网络请求都集中在后台脚本里，
+          搜索 <code>fetch(</code> 即可确认扩展只会去下载你订阅的规则列表，没有其他出口。</p>
+      </div>
+    </section>
+
+    <!-- ============ 十三 ============ -->
+    <section class="doc" id="t1">
+      <h2><span class="num">十三</span>用户协议：服务说明与许可</h2>
+
+      <h3>13.1 服务说明</h3>
+      <p>
+        本扩展是一款免费提供的本地浏览器工具，通过浏览器提供的规则拦截能力，帮助你在浏览网页时减少广告与追踪请求。
+        它<strong>按「现状」和「现有」提供</strong>，不附带任何形式的明示或默示担保，包括但不限于对适销性、
+        特定用途适用性、不侵权、以及持续可用性的担保。
+      </p>
+      <p>
+        作者保留随时修改、增删功能或停止维护的权利，且没有义务提供技术支持、修复期限或兼容性承诺。
+      </p>
+
+      <h3>13.2 使用许可</h3>
+      <p>在你遵守本协议的前提下，你可以：</p>
+      <ul>
+        <li>在自己拥有或有权使用的设备上安装、使用本扩展；</li>
+        <li>查看、学习其源码，并按原许可条款进行二次开发；</li>
+        <li>把它推荐给别人，或在自己可控的范围内分发。</li>
+      </ul>
+      <p>你不得：</p>
+      <ul>
+        <li>将本扩展用于任何违反所在地法律法规的用途；</li>
+        <li>利用本扩展绕过付费内容、会员限制、版权保护措施或访问控制，或干扰他人的网络服务；</li>
+        <li>移除、隐藏或篡改本扩展中的版权声明与作者信息后，以自己名义发布；</li>
+        <li>将本扩展改造成窃取用户数据、劫持流量或投放广告的工具后再分发——那已经与这个项目无关，作者不承担任何连带责任。</li>
+      </ul>
+
+      <h3>13.3 关于规则列表的说明</h3>
+      <p>
+        广告规则的命中与页面结构强相关。网站改版、列表更新滞后，都可能造成两种情况：
+        <strong>残留广告没被拦掉</strong>，或者<strong>正常内容被误拦</strong>。
+        这属于此类工具固有的特性，不是缺陷。遇到误拦时，请使用「本站白名单」临时恢复，
+        或通过「点选屏蔽」与自定义规则精细调整。
+      </p>
+    </section>
+
+    <!-- ============ 十四 ============ -->
+    <section class="doc" id="t2">
+      <h2><span class="num">十四</span>用户协议：你的责任</h2>
+      <ol class="lead-num">
+        <li>
+          <strong>自行判断在哪些站点启用。</strong>
+          银行、证券、政务、医疗、支付等关键业务站点，建议加入白名单，
+          确保其页面的脚本与请求不被任何自定义规则影响。
+        </li>
+        <li>
+          <strong>对导入的规则负责。</strong>
+          第三方规则列表或你手工粘贴的规则可能带来误拦，请在导入后留意页面是否正常。
+          扩展提供了「规则校验」功能，可以在添加前先确认一条规则的意图与命中范围。
+        </li>
+        <li>
+          <strong>功能开关的取舍由你决定。</strong>
+          「屏蔽直播内容推荐」涉及隐藏页面内容，「反广告拦截检测对抗」会改变页面读取元素尺寸的结果，
+          这两项都提供了独立开关，也可以随时关闭。默认状态下前者是关闭的。
+        </li>
+        <li>
+          <strong>自行做好配置备份。</strong>
+          由于扩展标识与安装路径绑定，移动目录或更换浏览器都可能导致设置丢失。
+          建议使用「导出备份」保存一份配置。
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============ 十五 ============ -->
+    <section class="doc" id="t3">
+      <h2><span class="num">十五</span>用户协议：免责声明</h2>
+      <p>在法律允许的最大范围内，你需要了解并接受以下事项：</p>
+      <ul>
+        <li><strong>不保证拦截效果。</strong>不承诺拦截全部广告，也不承诺拦截后页面一定正常显示。</li>
+        <li><strong>不保证第三方可用性。</strong>订阅的规则列表地址可能改版、失效或停止维护，这不在作者控制范围内。</li>
+        <li><strong>误拦风险自负。</strong>因规则误拦导致的功能不可用、页面异常、数据提交失败、交易未完成等后果，
+          作者不承担赔偿责任。</li>
+        <li><strong>使用风险自负。</strong>使用本扩展产生的一切直接或间接损失，由使用者自行承担。</li>
+        <li><strong>无商业承诺。</strong>本扩展为个人开源项目，不构成任何形式的服务等级协议（SLA）。</li>
+      </ul>
+      <div class="note err">
+        <p><span class="note-title">重要提示。</span>
+          请勿在涉及资金流转、身份认证、医疗决策的页面上开启激进的自定义规则。
+          如果发现页面异常，第一反应应当是<strong>为该站点开启白名单并刷新页面</strong>，
+          而不是继续操作。</p>
+      </div>
+    </section>
+
+    <!-- ============ 十六 ============ -->
+    <section class="doc" id="t4">
+      <h2><span class="num">十六</span>用户协议：知识产权</h2>
+      <ul>
+        <li>本扩展的源代码、界面设计与文档归项目作者所有。</li>
+        <li>内置与订阅的第三方规则列表，其著作权归各列表维护组织，遵循其原始许可条款；本项目仅做格式解析与下发，不主张任何权利。</li>
+        <li>「AdShield」与「净网卫士」仅作为项目名称使用。本扩展与 Adblock Plus、uBlock Origin、AdGuard 等项目之间<strong>不存在隶属或合作关系</strong>，
+          仅在文件格式层面兼容它们公开的规则语法。</li>
+      </ul>
+    </section>
+
+    <!-- ============ 十七 ============ -->
+    <section class="doc" id="t5">
+      <h2><span class="num">十七</span>协议终止与适用法律</h2>
+      <h3>17.1 终止</h3>
+      <p>
+        你可以在任何时候通过卸载本扩展来终止本协议。卸载后，第 3 节列出的本地数据会被浏览器一并清除，
+        双方不再互负义务。第 13 至 16 条（许可限制、免责声明、知识产权）在终止后继续有效。
+      </p>
+      <h3>17.2 适用法律</h3>
+      <p>
+        本协议适用中华人民共和国法律。因本协议产生的争议，双方应友好协商解决；
+        协商不成的，提交作者所在地有管辖权的人民法院裁决。
+      </p>
+      <h3>17.3 条款可分性</h3>
+      <p>
+        本协议任何条款被认定为无效或不可执行的，不影响其余条款的效力，
+        该条款将在最小必要范围内被调整以使其可执行。
+      </p>
+      <h3>17.4 接受条款</h3>
+      <p>
+        安装或使用本扩展，即视为你已阅读、理解并同意本隐私政策与用户协议的全部内容。
+        如果你不同意其中任何一项，请不要安装或使用本扩展。
+      </p>
+    </section>
+
+    <!-- ============ 速读 ============ -->
+    <div class="quick" id="t6">
+      <h2><span class="num" style="display:none">十八</span>一页速读</h2>
+      <ol>
+        <li><strong>它不收集任何数据</strong>——没有服务器，没有账号，没有埋点，没有第三方 SDK。</li>
+        <li><strong>你的设置和订阅只存在本机</strong>，卸载扩展即彻底清除；拦截日志与标签页计数存在内存里，关浏览器就没了。</li>
+        <li><strong>唯一的联网动作</strong>是下载你自己订阅的规则列表，每 12 小时一次，可以关掉；不订阅任何在线列表就完全离线可用。</li>
+        <li><strong>权限只有八项</strong>，每一项都能在<a href="#s5">第五节</a>查到对应的用途；「所有网站」权限是拦截类工具的固有需要，且可随时用白名单收窄。</li>
+        <li><strong>唯一会改变页面行为的功能</strong>是反广告拦截检测对抗，它会包装页面读取元素尺寸的接口，默认开启但可单独关闭。</li>
+        <li><strong>误拦风险自负</strong>——遇到页面异常，先给该站点加白名单并刷新。</li>
+      </ol>
+    </div>
+
+    <footer class="foot">
+      <div>AdShield 净网卫士 · 隐私政策与用户协议 · 版本 1.4.1 · 生效 2026-10-13</div>
+      <div class="foot-links">
+        <a href="#s1">返回顶部</a>
+        <a href="#s5">权限清单</a>
+        <a href="#t6">一页速读</a>
+        <button class="linkbtn" id="btnPrint" type="button">打印 / 导出 PDF</button>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<button class="totop" id="totop" type="button" aria-label="返回顶部" title="返回顶部">↑</button>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- 返回顶部 ---------- */
+  var totop = document.getElementById('totop');
+  function onScroll() {
+    if (window.scrollY > 600) totop.classList.add('show');
+    else totop.classList.remove('show');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  totop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---------- 打印 / 导出 PDF ---------- */
+  var btnPrint = document.getElementById('btnPrint');
+  if (btnPrint) btnPrint.addEventListener('click', function () { window.print(); });
+
+  /* ---------- 目录高亮（滚动到哪一节就点亮哪一项） ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) map[id] = a;
+  });
+  var sections = Object.keys(map).map(function (id) {
+    return document.getElementById(id);
+  });
+
+  var current = null;
+  function highlight() {
+    // 取「已经越过视口上方 120px」的最后一个章节作为当前章节
+    var line = window.scrollY + 120;
+    var pick = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].offsetTop <= line) pick = sections[i];
+    }
+    if (!pick || pick === current) return;
+    current = pick;
+    links.forEach(function (a) { a.classList.remove('is-active'); });
+    var active = map[pick.id];
+    if (active) active.classList.add('is-active');
+  }
+  window.addEventListener('scroll', highlight, { passive: true });
+  window.addEventListener('resize', highlight);
+  highlight();
+
+  /* ---------- 目录折叠（只在窄屏生效） ---------- */
+  var tocBox = document.getElementById('tocBox');
+  var tocNarrow = null;
+  function syncToc() {
+    if (!tocBox) return;
+    var narrow = window.matchMedia('(max-width: 1000px)').matches;
+    // 只在跨越断点的那一刻改一次，避免用户手动展开后被一次 resize 强行关掉
+    if (narrow === tocNarrow) return;
+    tocNarrow = narrow;
+    tocBox.open = !narrow;
+  }
+  syncToc();
+  window.addEventListener('resize', syncToc);
+  if (tocBox) {
+    // 窄屏里点完目录项就自动收起，省得再手动关一次
+    tocBox.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (a && window.matchMedia('(max-width: 1000px)').matches) tocBox.open = false;
+    });
+  }
+
+  /* ---------- 打印时清掉目录高亮 ---------- */
+  window.addEventListener('beforeprint', function () {
+    links.forEach(function (a) { a.classList.remove('is-active'); });
+  });
+})();
+</script>
+
+</body>
+</html>
